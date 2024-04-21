@@ -1,7 +1,7 @@
 <div class="flex flex-col">
     <div class="flex justify-between items-center mb-4">
         <h2 class="font-bold text-xl">Manage Todos</h2>
-        <button class="btn btn-icon btn-rounded btn-primary">
+        <button class="btn btn-icon btn-rounded btn-primary" (click)="openSlidePanel()">
             <i class="ri-add-line ri-lg"></i>
             Add Todo
         </button>
@@ -12,3 +12,27 @@
         }
     </div>
 </div>
+<app-slide-panel [headerText]="'Todo Details'" [isOpen]="isSlidePanelOpen" (onClose)="onCloseSidePanel()">
+    <form action="">
+        <div class="form-group mb-3">
+            <label for="title" class="form-lable">Title</label>
+            <input type="text" id="title" class="form-control" 
+                [class]="{'invalid': todoForm.get('title')?.hasError('required') && todoForm.get('title')?.touched, 'valid':todoForm.get('title')?.valid}"
+                placeholder="Title" formControlName="title"
+            />
+            @if(todoForm.get('title')?.hasError('required') && todoForm.get('title')?.touched){
+                <span class="form-error">Title is required.</span>
+            }
+        </div>
+        <div class="form-group mb-3">
+            <label for="description">Description</label>
+            <textarea name="" rows="10" class="form-control"
+                [class]="{'invalid': todoForm.get('description')?.hasError('required') && todoForm.get('description')?.touched}"
+                placeholder="Description" formControlName="description"
+            ></textarea>
+            @if(todoForm.get('description')?.hasError('required') && todoForm.get('description')?.touched){
+                <span class="form-error">Description is required.</span>
+            }
+        </div>
+    </form>
+</app-slide-panel>
