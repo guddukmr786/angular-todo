@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ITodo, ITodoType } from '../../../core/models/todo.model';
+export const ITodoStatus = ['OPEN','PROGRESS','TESTING','DONE'];
 @Component({
   selector: 'app-todo-card',
   standalone: true,

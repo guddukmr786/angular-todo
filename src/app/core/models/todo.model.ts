@@ -1,5 +1,4 @@
 export type ITodoType = 'OPEN' | 'PROGRESS' | 'TESTING' | 'DONE';
-export type ITodoStatus = ['OPEN','PROGRESS','TESTING','DONE'];
 export interface ITodo{
     id?:number;
     title:string;

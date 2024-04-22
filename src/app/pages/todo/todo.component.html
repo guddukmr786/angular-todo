@@ -12,27 +12,48 @@
         }
     </div>
 </div>
+<!-- side panel design code -->
 <app-slide-panel [headerText]="'Todo Details'" [isOpen]="isSlidePanelOpen" (onClose)="onCloseSidePanel()">
-    <form action="">
+    <form [formGroup]="todoForm" (ngSubmit)="onSubmit()" autocomplete="false" novalidate>
         <div class="form-group mb-3">
             <label for="title" class="form-lable">Title</label>
             <input type="text" id="title" class="form-control" 
+                formControlName="title"
                 [class]="{'invalid': todoForm.get('title')?.hasError('required') && todoForm.get('title')?.touched, 'valid':todoForm.get('title')?.valid}"
-                placeholder="Title" formControlName="title"
+                placeholder="Title" 
             />
             @if(todoForm.get('title')?.hasError('required') && todoForm.get('title')?.touched){
                 <span class="form-error">Title is required.</span>
             }
         </div>
         <div class="form-group mb-3">
-            <label for="description">Description</label>
-            <textarea name="" rows="10" class="form-control"
-                [class]="{'invalid': todoForm.get('description')?.hasError('required') && todoForm.get('description')?.touched}"
+            <label for="description" class="form-label">Description</label>
+            <textarea name="" rows="4" class="form-control"
+                [class]="{'invalid': todoForm.get('description')?.hasError('required') && todoForm.get('description')?.touched, 'valid':todoForm.get('description')?.valid}"
                 placeholder="Description" formControlName="description"
             ></textarea>
             @if(todoForm.get('description')?.hasError('required') && todoForm.get('description')?.touched){
                 <span class="form-error">Description is required.</span>
             }
+        </div>
+        <div class="form-group mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select
+            class="form-select"
+            [class]="{'invalid': todoForm.get('status')?.hasError('required') && todoForm.get('status')?.touched, 'valid':todoForm.get('status')?.valid}" 
+            formControlName="status">
+                <option [value]="" selected="selected">Select an option</option>
+                @for(item of todoStatus; track $index){
+                    <option [value]="item">{{item}}</option>
+                }
+            </select>
+            @if(todoForm.get('status')?.hasError('require') && todoForm.get('status')?.touched){
+                <span class="form-error">Status is required.</span>
+            }
+        </div>
+        <div class="flex gap-2">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="button" class="btn btn-secondary" (click)="onCloseSidePanel">Cancel</button>
         </div>
     </form>
 </app-slide-panel>
